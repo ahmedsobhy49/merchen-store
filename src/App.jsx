@@ -1,0 +1,169 @@
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+
+import { useSelector, useDispatch } from "react-redux";
+
+import ProtectedRoute from "./routes/ProtectedRoute";
+
+import Header from "./components/layout/header/Header";
+import ProductCategories from "./components/layout/sidebars/mainCategorySidebar/ProductCategories";
+import ProductItemDetails from "./components/product/productDetails/ProductItemDetails";
+
+import Home from "./pages/home/Home";
+import Search from "./components/search/Search";
+import Cart from "./pages/cart/Cart";
+import Signin from "./pages/signin/Signin";
+import Signup from "./pages/signup/Signup";
+import Footer from "./components/layout/footer/Footer";
+import ScrollToTop from "./components/ScrollToTop";
+import UserProfile from "./pages/userProfile/UserProfile";
+import WishList from "./pages/wishList/WishList";
+import NewArrival from "./pages/newArrival/NewArrival";
+
+// men clothing pages
+import MenJeans from "./pages/menClothingPages/menJeans/MenJeans";
+import MenPants from "./pages/menClothingPages/menPants/MenPants";
+import MenTshirts from "./pages/menClothingPages/menTshirts/MenTshirts";
+import MenShorts from "./pages/menClothingPages/menShorts/MenShorts";
+import MenHoodies from "./pages/menClothingPages/menHoodies/MenHoodies";
+import MenShirts from "./pages/menClothingPages/menShirts/MenShirts";
+import MenJackets from "./pages/menClothingPages/menJackets/MenJackets";
+import MenSwimwear from "./pages/menClothingPages/menSwimwear/MenSwinwear";
+import MenKint from "./pages/menClothingPages/menKnit/MenKnit";
+import MenUnderwear from "./pages/menClothingPages/menUnderwear/MenUnderwear";
+import MenPacks from "./pages/menClothingPages/menPacks/MenPacks";
+
+// women clothing pages
+import WomenTops from "./pages/womenClothingPages/tops/WomenTops";
+import WomenTshirts from "./pages/womenClothingPages/tshirts/WomenTshirts";
+import WomenDresses from "./pages/womenClothingPages/dresses/WomenDresses";
+import WomenJeans from "./pages/womenClothingPages/jeans/WomenJeans";
+import WomenPants from "./pages/womenClothingPages/pants/WomenPants";
+import WomenSkirts from "./pages/womenClothingPages/skirts/WomenSkirts";
+import WomenShorts from "./pages/womenClothingPages/shorts/WomenShorts";
+import WomenBlouses from "./pages/womenClothingPages/blouses/WomenBlouses";
+import WomenBikinis from "./pages/womenClothingPages/bikinis/WomenBikinis";
+import WomenJumpsuits from "./pages/womenClothingPages/jumpsuits/WomenJumpsuits";
+import WomenHoodies from "./pages/womenClothingPages/hoodies/WomenHoodies";
+import WomenJackets from "./pages/womenClothingPages/jackets/WomenJackets";
+import WomenTotalLook from "./pages/womenClothingPages/totallook/WomenTotalLook";
+import WomenKnitwear from "./pages/womenClothingPages/knitwear/WomenKnitwear";
+import WomenVests from "./pages/womenClothingPages/vests/WomenVests";
+import WomenBlazers from "./pages/womenClothingPages/blazers/WomenBlazers";
+import WomenLingerie from "./pages/womenClothingPages/lingerie/WomenLingerie";
+import CheckOut from "./pages/checkOut/CheckOut";
+import InvoiceSummery from "./pages/invoiceSummary/InvoiceSummery";
+import NotFoundPage from "./pages/notFoundPage/NotFoundPage";
+import { useParams } from "react-router-dom";
+import DeliveryInfo from "./pages/ deliveryInfo/ DeliveryInfo";
+import Register from "./components/forms/Register";
+
+function App() {
+  const dispatch = useDispatch();
+  const gender = useSelector((state) => state.gender);
+  const searchButtonClicked = useSelector((state) => state.searchButtonClicked);
+  const showProductCategories = useSelector(
+    (state) => state.showProductCategories
+  );
+
+  const GenderRedirect = () => {
+    const { gender } = useParams();
+
+    if (gender === "men" || gender === "women") {
+      dispatch({ type: "CHANGE_GENDER", payload: gender });
+      return <Home />;
+    }
+    return <Navigate to="*" />;
+  };
+  return (
+    <div>
+      <ProductCategories />
+      <div
+        className={`${
+          showProductCategories ? "opacity-45" : "opacity-100"
+        } duration-500`}
+      >
+        <Header />
+        <Search />
+        <Routes>
+          <Route path="/" element={<Navigate to={`${gender}`} />} />
+          <Route path="/:gender" element={<GenderRedirect />} />
+          <Route path="/delivery-info" element={<DeliveryInfo />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route
+            path="/checkout"
+            element={
+              <ProtectedRoute>
+                <CheckOut />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/wishlist" element={<WishList />} />
+          <Route path="/summery" element={<InvoiceSummery />} />
+          <Route path="/login" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/userProfile"
+            element={
+              <ProtectedRoute>
+                <UserProfile />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/newArrival" element={<NewArrival />} />
+          // men
+          <Route path="/men-jeans" element={<MenJeans />} />
+          <Route path="/men-pants" element={<MenPants />} />
+          <Route path="/men-tshirts" element={<MenTshirts />} />
+          <Route path="/men-shorts" element={<MenShorts />} />
+          <Route path="/men-hoodies" element={<MenHoodies />} />
+          <Route path="/men-shirts" element={<MenShirts />} />
+          <Route path="/men-jackets" element={<MenJackets />} />
+          <Route path="/men-swimwear" element={<MenSwimwear />} />
+          <Route path="/men-kint" element={<MenKint />} />
+          <Route path="/men-underwear" element={<MenUnderwear />} />
+          <Route path="/men-packs" element={<MenPacks />} />
+          // women
+          <Route path="/women-tops" element={<WomenTops />} />
+          <Route path="/women-tshirts" element={<WomenTshirts />} />
+          <Route path="/women-dresses" element={<WomenDresses />} />
+          <Route path="/women-jeans" element={<WomenJeans />} />
+          <Route path="/women-pants" element={<WomenPants />} />
+          <Route path="/women-skirts" element={<WomenSkirts />} />
+          <Route path="/women-shorts" element={<WomenShorts />} />
+          <Route path="/women-blouses" element={<WomenBlouses />} />
+          <Route path="/women-bikinis" element={<WomenBikinis />} />
+          <Route path="/women-jumpsuits" element={<WomenJumpsuits />} />
+          <Route path="/women-hoodies" element={<WomenHoodies />} />
+          <Route path="/women-jackets" element={<WomenJackets />} />
+          {/* <Route path="/women-total-look" element={<WomenTotalLook />} /> */}
+          <Route path="/women-knitwear" element={<WomenKnitwear />} />
+          <Route path="/women-vests" element={<WomenVests />} />
+          <Route path="/women-blazers" element={<WomenBlazers />} />
+          <Route path="/women-lingerie" element={<WomenLingerie />} />
+          //
+          <Route
+            path={`/product-details/:productTitle`}
+            element={<ProductItemDetails />}
+          />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </div>
+      {!searchButtonClicked ? <Footer /> : null}
+    </div>
+  );
+}
+
+export default function AppWrapper() {
+  return (
+    <Router>
+      <ScrollToTop />
+      <App />
+    </Router>
+  );
+}
