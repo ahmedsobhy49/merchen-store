@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import ErrorMessage from "../common/ErrorMessage";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
+
 export default function Register() {
   const validateScheme = Yup.object({
     firstName: Yup.string()

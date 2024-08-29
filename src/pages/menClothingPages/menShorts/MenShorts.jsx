@@ -9,25 +9,20 @@ import ProductsContainer from "../../../components/common/ProductsContainer";
 import { useSelector, useDispatch } from "react-redux";
 
 // store
-import { fetchData } from "../../../store";
+import { fetchMenData } from "../../../store/slices/fetchingMenDataSlice";
 import { collection } from "firebase/firestore";
 import { db } from "../../../services/firebaseConfig";
 
 export default function MenShorts() {
   const dispatch = useDispatch();
-  const menShorts = useSelector((state) => state.menShorts);
-  const loading = useSelector((state) => state.fetchingMenShortsStates.loading);
+  const menShorts = useSelector((state) => state.fetchingMenData.menShorts);
+  const loading = useSelector(
+    (state) => state.fetchingMenData.fetchingMenShortsStates.loading
+  );
   const menShortsCollectionRef = collection(db, "menShorts");
 
   useEffect(() => {
-    dispatch(
-      fetchData(
-        "FETCH_MEN_SHORTS_DATA_REQUEST",
-        "FETCH_MEN_SHORTS_DATA_SUCCESS",
-        "FETCH_MEN_SHORTS_DATA_FAILURE",
-        menShortsCollectionRef
-      )
-    );
+    dispatch(fetchMenData("menShorts", menShortsCollectionRef));
   }, [dispatch]);
 
   return (

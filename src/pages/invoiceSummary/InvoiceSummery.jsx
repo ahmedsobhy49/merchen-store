@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import SummaryProductItem from "../../components/product/SummaryProductItem";
 
 export default function InvoiceSummery() {
-  const cartItems = useSelector((state) => state.cartItems);
-  const orderSummary = useSelector((state) => state.orderSummary);
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const orderSummary = useSelector((state) => state.cart.orderSummary);
 
   return (
     <section className="mt-[150px] mb-20 ">

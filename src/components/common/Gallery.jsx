@@ -9,7 +9,7 @@ export default function Gallery({ images }) {
         {images?.map((image, index) => {
           return (
             <img
-              key={image}
+              key={index}
               src={image}
               alt=""
               className={`w-[66px] h-[100px] ${

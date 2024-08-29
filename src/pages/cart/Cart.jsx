@@ -4,8 +4,9 @@ import CartItem from "./components/CartItem";
 import CartSummery from "./components/CartSummery";
 import PeopleAlsoBought from "./components/PeopleAlsoBought";
 import CartIsEmpty from "./components/CartIsEmpty";
+
 export default function Cart() {
-  const cartItems = useSelector((state) => state.cartItems);
+  const cartItems = useSelector((state) => state.cart.cartItems);
 
   return (
     <section className="bg-white py-40 antialiased min-h-screen">

@@ -10,7 +10,7 @@ import styles from "./Search.module.css";
 import { useDispatch, useSelector } from "react-redux";
 
 // store
-import { fetchData } from "../../store/index";
+import { fetchGeneralData } from "../../store/slices/generalFetchingDataSlice";
 import { collection } from "firebase/firestore";
 import { db } from "../../services/firebaseConfig";
 
@@ -19,13 +19,17 @@ export default function Search() {
   const [inputValue, setInputValue] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const searchInput = useRef(null);
-  const searchButtonClicked = useSelector((state) => state.searchButtonClicked);
-  const loading = useSelector(
-    (state) => state.fetchingSuggestedProductsStates.loading
-  );
 
-  const suggestedProducts = useSelector((state) => state.suggestedProducts);
-  const gender = useSelector((state) => state.gender);
+  const searchButtonClicked = useSelector(
+    (state) => state.layouts.searchButtonClicked
+  );
+  const loading = useSelector(
+    (state) => state.fecthingGeneralData.fetchingSuggestedProductsStates.loading
+  );
+  const suggestedProducts = useSelector(
+    (state) => state.fecthingGeneralData.suggestedProducts
+  );
+  const gender = useSelector((state) => state.auth.gender);
 
   const menSuggestedProductsCollectionRef = collection(
     db,
@@ -38,10 +42,8 @@ export default function Search() {
 
   useEffect(() => {
     dispatch(
-      fetchData(
-        "FETCH_SUGGESTED_DATA_REQUEST",
-        "FETCH_SUGGESTED_DATA_SUCCESS",
-        "FETCH_SUGGESTED_DATA_FAILURE",
+      fetchGeneralData(
+        "suggestedProducts",
         menSuggestedProductsCollectionRef,
         womenSuggestedProductsCollectionRef
       )

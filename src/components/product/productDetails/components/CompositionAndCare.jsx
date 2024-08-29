@@ -59,10 +59,10 @@ export default function CompositionAndCare({
         <li className="flex flex-col gap-3">
           <h4 className="font-bold tracking-wide">Traceability</h4>
           <p className="ml-3">{traceabilityDesc}</p>
-          <di className="ml-3">
+          <div className="ml-3">
             <p>Weaving: {weaving}</p>
             <p>Production: {production}</p>
-          </di>
+          </div>
         </li>
         <li className="flex flex-col gap-3">
           <h4 className="font-bold tracking-wide">Packaging</h4>

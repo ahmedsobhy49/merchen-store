@@ -4,17 +4,21 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import MenClothingCategories from "../clothingCategorySidebar/MenClothingCategories";
 import WomenClothingCategories from "../clothingCategorySidebar/WomenClothingCategories";
-
+import {
+  showProductCategories,
+  showClothingCategories,
+} from "../../../../store/slices/layoutsSlice";
+import { changeGender } from "../../../../store/slices/authSlice";
 export default function ProductCategories() {
   const dispatch = useDispatch();
-  const showClothingCategories = useSelector(
-    (state) => state.showClothingCategories
+  const showClothingCategoriesState = useSelector(
+    (state) => state.layouts.showClothingCategories
   );
 
-  const gender = useSelector((state) => state.gender);
+  const gender = useSelector((state) => state.auth.gender);
   useEffect(() => {
     const handleScroll = () => {
-      hideProductCategoriesFun();
+      hideProductCategories();
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -24,38 +28,35 @@ export default function ProductCategories() {
     };
   }, []);
 
-  const showProductCategories = useSelector(
-    (state) => state.showProductCategories
+  const showProductCategoriesState = useSelector(
+    (state) => state.layouts.showProductCategories
   );
 
-  function hideProductCategoriesFun() {
-    dispatch({ type: "SHOW_PRODUCT_CATEGORIES", payload: false });
+  function hideProductCategories() {
+    dispatch(showProductCategories(false));
   }
 
-  function changeGender(gender) {
-    dispatch({
-      type: "CHANGE_GENDER",
-      payload: gender,
-    });
+  function handleChangeGender(gender) {
+    dispatch(changeGender(gender));
   }
 
   function handleShowClothingCategories() {
-    dispatch({ type: "SHOW_CLOTHING_CATEGORIES", payload: true });
+    dispatch(showClothingCategories(true));
   }
 
   return (
     <>
       <div
         className={`duration-500  bg-white fixed top-0 bottom-0  w-5/12 z-50  shadow-xl ${
-          showProductCategories ? "translate-x-0" : "translate-x-[-800px]"
+          showProductCategoriesState ? "translate-x-0" : "translate-x-[-800px]"
         }`}
-        onMouseLeave={hideProductCategoriesFun}
+        onMouseLeave={hideProductCategories}
       >
         <div className="flex px-5 py-10">
           <Link
             to={"/men"}
             className="font-bold cursor-pointer"
-            onClick={() => changeGender("men")}
+            onClick={() => handleChangeGender("men")}
           >
             Men
           </Link>
@@ -63,7 +64,7 @@ export default function ProductCategories() {
           <Link
             to={"/women"}
             className="font-bold cursor-pointer"
-            onClick={() => changeGender("women")}
+            onClick={() => handleChangeGender("women")}
           >
             Women
           </Link>
@@ -125,11 +126,11 @@ export default function ProductCategories() {
             </ul>
           </div>
           <div>
-            {showClothingCategories && gender === "men" ? (
+            {showClothingCategoriesState && gender === "men" ? (
               <MenClothingCategories />
             ) : null}
 
-            {showClothingCategories && gender === "women" ? (
+            {showClothingCategoriesState && gender === "women" ? (
               <WomenClothingCategories />
             ) : null}
           </div>

@@ -6,7 +6,9 @@ import { useSelector } from "react-redux";
 import Pants from "./homeSections/Pants";
 
 export default function Home() {
-  const searchButtonClicked = useSelector((state) => state.searchButtonClicked);
+  const searchButtonClicked = useSelector(
+    (state) => state.layouts.searchButtonClicked
+  );
 
   return (
     <div>

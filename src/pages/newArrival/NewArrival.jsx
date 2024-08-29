@@ -8,13 +8,15 @@ import ProductsContainer from "../../components/common/ProductsContainer";
 import { useSelector, useDispatch } from "react-redux";
 
 // store
-import { fetchData } from "../../store/index";
+import { fetchGeneralData } from "../../store/slices/generalFetchingDataSlice";
 import { collection } from "firebase/firestore";
 import { db } from "../../services/firebaseConfig";
 
 export default function NewArrival() {
   const dispatch = useDispatch();
-  const newArrivalData = useSelector((state) => state.newArrivalData);
+  const newArrivalData = useSelector(
+    (state) => state.fecthingGeneralData.newArrival
+  );
 
   const menNewArrivalProductsCollectionRef = collection(db, "menNewArrival");
   const womenNewArrivalProductsCollectionRef = collection(
@@ -22,15 +24,13 @@ export default function NewArrival() {
     "womenNewArrival"
   );
   const loading = useSelector(
-    (state) => state.fetchingNewArrivalStates.loading
+    (state) => state.fecthingGeneralData.fetchingNewArrivalStates.loading
   );
 
   useEffect(() => {
     dispatch(
-      fetchData(
-        "FETCH_NEW_ARRIVAL_DATA_REQUEST",
-        "FETCH_NEW_ARRIVAL_DATA_SUCCESS",
-        "FETCH_NEW_ARRIVAL_DATA_FAILURE",
+      fetchGeneralData(
+        "newArrival",
         menNewArrivalProductsCollectionRef,
         womenNewArrivalProductsCollectionRef
       )

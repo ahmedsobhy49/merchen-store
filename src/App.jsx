@@ -6,6 +6,7 @@ import {
   Navigate,
 } from "react-router-dom";
 
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
@@ -51,7 +52,7 @@ import WomenBikinis from "./pages/womenClothingPages/bikinis/WomenBikinis";
 import WomenJumpsuits from "./pages/womenClothingPages/jumpsuits/WomenJumpsuits";
 import WomenHoodies from "./pages/womenClothingPages/hoodies/WomenHoodies";
 import WomenJackets from "./pages/womenClothingPages/jackets/WomenJackets";
-import WomenTotalLook from "./pages/womenClothingPages/totallook/WomenTotalLook";
+// import WomenTotalLook from "./pages/womenClothingPages/totallook/WomenTotalLook";
 import WomenKnitwear from "./pages/womenClothingPages/knitwear/WomenKnitwear";
 import WomenVests from "./pages/womenClothingPages/vests/WomenVests";
 import WomenBlazers from "./pages/womenClothingPages/blazers/WomenBlazers";
@@ -62,22 +63,32 @@ import NotFoundPage from "./pages/notFoundPage/NotFoundPage";
 import { useParams } from "react-router-dom";
 import DeliveryInfo from "./pages/ deliveryInfo/ DeliveryInfo";
 import Register from "./components/forms/Register";
+import { changeGender } from "./store/slices/authSlice";
 
 function App() {
   const dispatch = useDispatch();
-  const gender = useSelector((state) => state.gender);
-  const searchButtonClicked = useSelector((state) => state.searchButtonClicked);
+  const gender = useSelector((state) => state.auth.gender);
+  const searchButtonClicked = useSelector(
+    (state) => state.layouts.searchButtonClicked
+  );
   const showProductCategories = useSelector(
-    (state) => state.showProductCategories
+    (state) => state.layouts.showProductCategories
   );
 
+  const user = useSelector((state) => state.auth.user.userInfo);
   const GenderRedirect = () => {
     const { gender } = useParams();
 
+    useEffect(() => {
+      if (gender === "men" || gender === "women") {
+        dispatch(changeGender(gender));
+      }
+    }, [gender, dispatch]);
+
     if (gender === "men" || gender === "women") {
-      dispatch({ type: "CHANGE_GENDER", payload: gender });
       return <Home />;
     }
+
     return <Navigate to="*" />;
   };
   return (
@@ -111,7 +122,7 @@ function App() {
             path="/userProfile"
             element={
               <ProtectedRoute>
-                <UserProfile />
+                <UserProfile user={user} />
               </ProtectedRoute>
             }
           />

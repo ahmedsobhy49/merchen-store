@@ -10,30 +10,42 @@ import { IoMdClose } from "react-icons/io";
 import LogoPull from "../../../../public/assets/icons/LogoPull";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import {
+  showProductCategories,
+  showSearchComponent,
+  hideSearchComponent,
+  showClothingCategories,
+} from "../../../store/slices/layoutsSlice";
+
 const womenHeaderColor = "black";
 
 export default function Header() {
   const location = useLocation();
   const path = location.pathname;
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  const searchButtonClicked = useSelector((state) => state.searchButtonClicked);
-  const gender = useSelector((state) => state.gender);
-  // need to cartItems to show number of cart items in the cart logo
-  const cartItems = useSelector((state) => state.cartItems);
-  const wishListItems = useSelector((state) => state.wishListItems);
+
+  const isAuthenticated = useSelector(
+    (state) => state.auth.user.isAuthenticated
+  );
+  const searchButtonClicked = useSelector(
+    (state) => state.layouts.searchButtonClicked
+  );
+  const gender = useSelector((state) => state.auth.gender);
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const wishListItems = useSelector((state) => state.wishList.wishListItems);
+
   const [showHeader, setShowHeader] = useState(true);
 
-  function showSearchComponent() {
-    dispatch({ type: "SHOW_SEARCH_COMPONENT", payload: true });
+  function handleShowSearchComponent() {
+    dispatch(showSearchComponent(true));
   }
-  function hideSearchComponent() {
-    dispatch({ type: "HIDE_SEARCH_COMPONENT", payload: false });
+
+  function handleHideSearchComponent() {
+    dispatch(hideSearchComponent(false));
   }
 
   function showProductCategoriesFun() {
-    if (!searchButtonClicked)
-      dispatch({ type: "SHOW_PRODUCT_CATEGORIES", payload: true });
+    if (!searchButtonClicked) dispatch(showProductCategories(true));
   }
 
   // function to hide header on scroll
@@ -113,7 +125,7 @@ export default function Header() {
             </div>
           }
           <div className="absolute left-1/2 -translate-x-1/2 w-40">
-            <Link to={"/"} onClick={hideSearchComponent}>
+            <Link to={"/"} onClick={handleHideSearchComponent}>
               <LogoPull
                 color={
                   gender === "women" && path === "/women"
@@ -132,7 +144,7 @@ export default function Header() {
                     ? `border-${womenHeaderColor}`
                     : "border-gray-700"
                 } flex justify-start gap-3 items-center w-60 cursor-pointer`}
-                onClick={showSearchComponent}
+                onClick={handleShowSearchComponent}
               >
                 <CiSearch
                   className="text-lg font-bold"
@@ -153,11 +165,11 @@ export default function Header() {
                 </span>
               </button>
             ) : (
-              <IoMdClose size="1.5rem" onClick={hideSearchComponent} />
+              <IoMdClose size="1.5rem" onClick={handleHideSearchComponent} />
             )}
 
             {/* cart icon  */}
-            <Link to={"/cart"} onClick={hideSearchComponent}>
+            <Link to={"/cart"} onClick={handleHideSearchComponent}>
               <div
                 className={`flex flex-col items-center justify-center ${
                   cartItems.length
@@ -193,7 +205,7 @@ export default function Header() {
             </Link>
 
             {/* wishlist icon */}
-            <Link to={"/wishlist"} onClick={hideSearchComponent}>
+            <Link to={"/wishlist"} onClick={handleHideSearchComponent}>
               <div
                 className={`flex flex-col items-center justify-center ${
                   wishListItems.length
@@ -233,7 +245,7 @@ export default function Header() {
             {/* user icon  */}
             <Link
               to={isAuthenticated ? "/userProfile" : "/login"}
-              onClick={hideSearchComponent}
+              onClick={handleHideSearchComponent}
             >
               <HiOutlineUser
                 className="cursor-pointer"

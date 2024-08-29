@@ -14,38 +14,47 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
 // store
-import { toggleWishListItem } from "../../../store/index";
-import { addNewItemToCart } from "../../../store/index";
+import { handleToggleWishListItem } from "../../../store/slices/wishListSlice";
+import { handleUpdateCartProducts } from "../../../store/slices/cartSlice";
 
 // router
 import { useLocation } from "react-router-dom";
 
 export default function ProductItemDetails() {
-  const CompositionAndCareContent = `
-  
-
-`;
-
   const location = useLocation();
   const dispatch = useDispatch();
   const product = location.state;
   const { title, price, image, id, count, galleryImages } = product;
 
-  const wishListItems = useSelector((state) => state.wishListItems);
+  const wishListItems = useSelector((state) => state.wishList.wishListItems);
   // Determine if the product is in the wishlist
   const isProductInWishList = wishListItems.some(
     (wishItem) => wishItem.id === id
   );
 
-  function handleAddNewItemToCart() {
+  function addNewItemToCart() {
     dispatch(
-      addNewItemToCart({ title, price, image, id, count, galleryImages })
+      handleUpdateCartProducts({
+        title,
+        price,
+        image,
+        id,
+        count,
+        galleryImages,
+      })
     );
   }
 
-  function handleToggleWishListItem() {
+  function toggleWishListItem() {
     dispatch(
-      toggleWishListItem({ title, price, image, id, count, galleryImages })
+      handleToggleWishListItem({
+        title,
+        price,
+        image,
+        id,
+        count,
+        galleryImages,
+      })
     );
   }
   return (
@@ -72,16 +81,7 @@ export default function ProductItemDetails() {
         <div className="flex w-full items-center">
           <button
             className="tracking-wider w-11/12 bg-green-500 px-4 py-2 text-center text-white rounded-2xl "
-            onClick={() =>
-              handleAddNewItemToCart({
-                title,
-                price,
-                image,
-                id,
-                count,
-                galleryImages,
-              })
-            }
+            onClick={() => addNewItemToCart()}
           >
             Add to my basket
           </button>
@@ -89,7 +89,7 @@ export default function ProductItemDetails() {
           <div
             className="bg-white shadow-lg rounded-full p-2 ml-4 w-fit"
             onClick={() =>
-              handleToggleWishListItem({
+              toggleWishListItem({
                 title,
                 price,
                 image,

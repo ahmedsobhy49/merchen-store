@@ -8,28 +8,32 @@ import ProductsContainer from "../../../components/common/ProductsContainer";
 // redux
 import { useSelector, useDispatch } from "react-redux";
 
-// store
-import { fetchData } from "../../../store";
+// firebase
 import { collection } from "firebase/firestore";
 import { db } from "../../../services/firebaseConfig";
 
+// store
+// import { fetchWomenData } from "../../../store/store";
+
+import { fetchWomenData } from "../../../store/slices/fetchingWomenDataSlice";
+
 export default function WomenBlazers() {
   const dispatch = useDispatch();
-  const womenBlazers = useSelector((state) => state.womenBlazers);
-  const loading = useSelector(
-    (state) => state.fetchingWomenBlazersStates.loading
+
+  // Selector to get women blazers data and loading state
+  const womenBlazers = useSelector(
+    (state) => state.fetchingWomenData.womenBlazers
   );
+
+  const loading = useSelector(
+    (state) => state.fetchingWomenData.fetchingWomenBlazersStates.loading
+  );
+
+  // Firebase collection reference
   const womenBlazersCollectionRef = collection(db, "womenBlazers");
 
   useEffect(() => {
-    dispatch(
-      fetchData(
-        "FETCH_WOMEN_BLAZERS_DATA_REQUEST",
-        "FETCH_WOMEN_BLAZERS_DATA_SUCCESS",
-        "FETCH_WOMEN_BLAZERS_DATA_FAILURE",
-        womenBlazersCollectionRef
-      )
-    );
+    dispatch(fetchWomenData("womenBlazers", womenBlazersCollectionRef));
   }, [dispatch]);
 
   return (

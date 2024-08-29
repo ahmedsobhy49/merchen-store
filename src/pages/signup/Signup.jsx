@@ -1,5 +1,4 @@
 import React from "react";
-// import SignupForm from "../../components/forms/SignupForm";
 import Register from "../../components/forms/Register";
 
 export default function Signup() {

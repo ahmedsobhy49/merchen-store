@@ -9,25 +9,20 @@ import ProductsContainer from "../../../components/common/ProductsContainer";
 import { useSelector, useDispatch } from "react-redux";
 
 // store
-import { fetchData } from "../../../store";
+import { fetchMenData } from "../../../store/slices/fetchingMenDataSlice";
 import { collection } from "firebase/firestore";
 import { db } from "../../../services/firebaseConfig";
 
 export default function MenKint() {
   const dispatch = useDispatch();
-  const menKint = useSelector((state) => state.menKint);
-  const loading = useSelector((state) => state.fetchingMenKintStates.loading);
+  const menKint = useSelector((state) => state.fetchingMenData.menKint);
+  const loading = useSelector(
+    (state) => state.fetchingMenData.fetchingMenKintStates.loading
+  );
   const menKintCollectionRef = collection(db, "menKint");
 
   useEffect(() => {
-    dispatch(
-      fetchData(
-        "FETCH_MEN_KINT_DATA_REQUEST",
-        "FETCH_MEN_KINT_DATA_SUCCESS",
-        "FETCH_MEN_KINT_DATA_FAILURE",
-        menKintCollectionRef
-      )
-    );
+    dispatch(fetchMenData("menKint", menKintCollectionRef));
   }, [dispatch]);
 
   return (

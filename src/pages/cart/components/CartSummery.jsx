@@ -2,15 +2,15 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-
+import { calcCartSummery } from "../../../store/slices/cartSlice";
 export default function CartSummery() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const orderSummary = useSelector((state) => state.orderSummary);
-  const cartItems = useSelector((state) => state.cartItems);
-  const gender = useSelector((state) => state.gender);
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const orderSummary = useSelector((state) => state.cart.orderSummary);
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const gender = useSelector((state) => state.auth.gender);
+  const { isAuthenticated } = useSelector((state) => state.auth.user);
   function calcCartSummary() {
     const originalPrice = Number(
       cartItems.reduce((acc, curr) => curr.price * curr.count + acc, 0)
@@ -19,16 +19,26 @@ export default function CartSummery() {
     const storePickup = 0;
     const tax = Number((originalPrice * 25) / 100);
     const total = Number(originalPrice + tax + storePickup - savings);
-    dispatch({
-      type: "CALC_ORDER_SUMMARY",
-      payload: {
+
+    dispatch(
+      calcCartSummery({
         originalPrice: originalPrice.toFixed(2),
         savings: savings.toFixed(2),
         storePickup: storePickup.toFixed(2),
         tax: tax.toFixed(2),
         total: total.toFixed(2),
-      },
-    });
+      })
+    );
+    // dispatch({
+    //   type: "CALC_ORDER_SUMMARY",
+    // payload: {
+    //   originalPrice: originalPrice.toFixed(2),
+    //   savings: savings.toFixed(2),
+    //   storePickup: storePickup.toFixed(2),
+    //   tax: tax.toFixed(2),
+    //   total: total.toFixed(2),
+    // },
+    // });
   }
 
   useEffect(() => {

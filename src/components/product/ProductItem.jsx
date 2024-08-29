@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { CiHeart } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleWishListItem } from "../../store/index";
-import { addNewItemToCart } from "../../store/index";
-import { Link, Navigate } from "react-router-dom";
+import { handleToggleWishListItem } from "../../store/slices/wishListSlice";
+import { handleUpdateCartProducts } from "../../store/slices/cartSlice";
+import { Link } from "react-router-dom";
+import { hideSearchComponent } from "../../store/slices/layoutsSlice";
 
 export default function ProductCard({
   product = {
@@ -21,24 +22,38 @@ export default function ProductCard({
   const { title, price, image, id, count, galleryImages } = product;
   const [isMouseIn, setIsMouseIn] = useState(false);
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cartItems);
-  const wishListItems = useSelector((state) => state.wishListItems);
-  const searchButtonClicked = useSelector((state) => state.searchButtonClicked);
+  const wishListItems = useSelector((state) => state.wishList.wishListItems);
+  const searchButtonClicked = useSelector(
+    (state) => state.layouts.searchButtonClicked
+  );
 
-  // Determine if the product is in the wishlist
   const isProductInWishList = wishListItems.some(
     (wishItem) => wishItem.id === id
   );
 
   function handleAddNewItemToCart() {
     dispatch(
-      addNewItemToCart({ title, price, image, id, count, galleryImages })
+      handleUpdateCartProducts({
+        title,
+        price,
+        image,
+        id,
+        count,
+        galleryImages,
+      })
     );
   }
 
-  function handleToggleWishListItem() {
+  function toggleWishListItem() {
     dispatch(
-      toggleWishListItem({ title, price, image, id, count, galleryImages })
+      handleToggleWishListItem({
+        title,
+        price,
+        image,
+        id,
+        count,
+        galleryImages,
+      })
     );
   }
 
@@ -51,9 +66,9 @@ export default function ProductCard({
   }
 
   function hideSearchComponentAfterClickOnProduct() {
-    searchButtonClicked === true
-      ? dispatch({ type: "HIDE_SEARCH_COMPONENT", payload: false })
-      : () => {};
+    if (searchButtonClicked) {
+      dispatch(hideSearchComponent(false));
+    }
   }
 
   return (
@@ -76,10 +91,7 @@ export default function ProductCard({
           isMouseIn ? "opacity-100" : "opacity-0"
         }`}
       >
-        <select
-          className="bg-white w-1/2 border border-black focus:outline-none"
-          name="no-navigate"
-        >
+        <select className="bg-white w-1/2 border border-black focus:outline-none">
           <option value="XS">XS</option>
           <option value="S">S</option>
           <option value="M">M</option>
@@ -88,22 +100,13 @@ export default function ProductCard({
         </select>
         <button
           className="w-1/2 bg-black text-white text-xs px-1 py-1"
-          name="no-navigate"
-          onClick={() =>
-            handleAddNewItemToCart({
-              title,
-              price,
-              image,
-              id,
-              count,
-            })
-          }
+          onClick={handleAddNewItemToCart}
         >
           Add
         </button>
       </div>
 
-      <div className="flex  justify-between  items-center mt-4">
+      <div className="flex justify-between items-center mt-4">
         <Link
           to={`/product-details/${title}`}
           state={product}
@@ -117,28 +120,12 @@ export default function ProductCard({
         </Link>
         <div
           className="bg-white shadow-lg rounded-full p-2 ml-4"
-          onClick={() =>
-            handleToggleWishListItem({
-              title,
-              price,
-              image,
-              id,
-              count,
-            })
-          }
+          onClick={toggleWishListItem}
         >
           {isProductInWishList ? (
-            <FaHeart
-              size="1.5rem"
-              className="cursor-pointer"
-              name="no-navigate"
-            />
+            <FaHeart size="1.5rem" className="cursor-pointer" />
           ) : (
-            <CiHeart
-              className="cursor-pointer"
-              size="1.5rem"
-              name="no-navigate"
-            />
+            <CiHeart className="cursor-pointer" size="1.5rem" />
           )}
         </div>
       </div>

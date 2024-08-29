@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import WishListsEmpty from "./WishListsEmpty";
 
 export default function WishList() {
-  const wishListItems = useSelector((state) => state.wishListItems);
+  const wishListItems = useSelector((state) => state.wishList.wishListItems);
   return (
     <section className="min-h-screen bg-white py-40 antialiased">
       {wishListItems.length ? (

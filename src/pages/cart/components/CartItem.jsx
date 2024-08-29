@@ -2,11 +2,12 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { updateCartProducts } from "../../../store/slices/cartSlice";
 
 export default function CartItem({ product }) {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cartItems);
-  const wishListItems = useSelector((state) => state.wishListItems);
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const wishListItems = useSelector((state) => state.wishList.wishListItems);
 
   function incrementProduct() {
     const newCartItems = cartItems.map((item) => {
@@ -17,7 +18,7 @@ export default function CartItem({ product }) {
       }
     });
 
-    dispatch({ type: "UPDATE_CART_PRODUCTS", payload: newCartItems });
+    dispatch(updateCartProducts(newCartItems));
   }
 
   function decrementProduct() {
@@ -35,14 +36,12 @@ export default function CartItem({ product }) {
       })
       .filter((item) => item !== null); // Filter out any null items
 
-    dispatch({ type: "UPDATE_CART_PRODUCTS", payload: newCartItems });
+    dispatch(updateCartProducts(newCartItems));
   }
 
   function removeProduct(id) {
-    dispatch({
-      type: "UPDATE_CART_PRODUCTS",
-      payload: cartItems.filter((item) => item.id !== id),
-    });
+    const newCartItems = cartItems.filter((item) => item.id !== id);
+    dispatch(updateCartProducts(newCartItems));
   }
 
   function moveToWishList(cartItem) {

@@ -9,27 +9,20 @@ import ProductsContainer from "../../../components/common/ProductsContainer";
 import { useSelector, useDispatch } from "react-redux";
 
 // store
-import { fetchData } from "../../../store";
+import { fetchWomenData } from "../../../store/slices/fetchingWomenDataSlice";
 import { collection } from "firebase/firestore";
 import { db } from "../../../services/firebaseConfig";
 
 export default function WomenPants() {
   const dispatch = useDispatch();
-  const womenPants = useSelector((state) => state.womenPants);
+  const womenPants = useSelector((state) => state.fetchingWomenData.womenPants);
   const loading = useSelector(
-    (state) => state.fetchingWomenPantsStates.loading
+    (state) => state.fetchingWomenData.fetchingWomenPantsStates.loading
   );
   const womenPantsCollectionRef = collection(db, "womenPants");
 
   useEffect(() => {
-    dispatch(
-      fetchData(
-        "FETCH_WOMEN_PANTS_DATA_REQUEST",
-        "FETCH_WOMEN_PANTS_DATA_SUCCESS",
-        "FETCH_WOMEN_PANTS_DATA_FAILURE",
-        womenPantsCollectionRef
-      )
-    );
+    dispatch(fetchWomenData("womenPants", womenPantsCollectionRef));
   }, [dispatch]);
 
   return (
