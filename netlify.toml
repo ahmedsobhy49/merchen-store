@@ -1,7 +1,8 @@
 [build]
-  command = "npm run build"  # or your build command, e.g., "yarn build"
-  publish = "build"  # or the directory where your build output is located
-  base = "/"  # Corrected this line
+  command = "npm run build"
+  publish = "dist"
+  base = "/"
+
 
 [[redirects]]
   from = "/*"
