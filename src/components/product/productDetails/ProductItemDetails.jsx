@@ -24,7 +24,7 @@ export default function ProductItemDetails() {
   const location = useLocation();
   const dispatch = useDispatch();
   const product = location.state;
-  const { title, price, image, id, count, galleryImages } = product;
+  const { title, price, image, id, count, galleryImages } = product || {};
 
   const wishListItems = useSelector((state) => state.wishList.wishListItems);
   // Determine if the product is in the wishlist
@@ -60,7 +60,7 @@ export default function ProductItemDetails() {
   return (
     <section className="flex gap-12 w-9/12 mx-auto mt-[110px] mb-10">
       <div className="w-1/2">
-        <Gallery images={[image, ...galleryImages]} />
+        <Gallery images={[image, ...(galleryImages || [])]} />
       </div>
       <div className="w-1/2 flex flex-col gap-3">
         <h2 className="block font-sans text-xl antialiased font-semibold leading-tight tracking-normal text-inherit">

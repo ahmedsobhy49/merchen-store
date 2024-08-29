@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormik } from "formik";
-import ErrorMessage from "../common/ErrorMessage";
 import * as Yup from "yup";
+import ErrorMessage from "../common/ErrorMessage";
 import { Link } from "react-router-dom";
 
 export default function Register() {
@@ -44,7 +44,9 @@ export default function Register() {
       password: "",
       confirmPassword: "",
     },
+
     validationSchema: validateScheme,
+
     onSubmit: (values) => {
       console.log(values);
     },

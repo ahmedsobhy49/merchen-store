@@ -1,5 +1,4 @@
 // src/store/index.js
-import { toast } from "react-toastify";
 import { configureStore } from "@reduxjs/toolkit";
 
 import cartReducer from "./slices/cartSlice";
@@ -13,11 +12,22 @@ import { thunk } from "redux-thunk";
 
 const loadState = () => {
   try {
-    const serializedState = localStorage.getItem("genderState");
-    if (serializedState === null) {
+    const authState = localStorage.getItem("authState");
+    const cartItemsState = localStorage.getItem("cartItemsState");
+    const wishListItemsState = localStorage.getItem("wishListItemsState");
+    if (
+      authState === null &&
+      cartItemsState === null &&
+      wishListItemsState === null
+    ) {
       return undefined;
     }
-    return JSON.parse(serializedState);
+
+    return {
+      auth: authState ? JSON.parse(authState) : undefined,
+      cart: cartItemsState ? JSON.parse(cartItemsState) : undefined,
+      wishList: wishListItemsState ? JSON.parse(wishListItemsState) : undefined,
+    };
   } catch (error) {
     console.error("Could not load state", error);
     return undefined;
@@ -26,12 +36,17 @@ const loadState = () => {
 
 const saveState = (state) => {
   try {
-    const serializedState = JSON.stringify({ auth: state.auth });
-    localStorage.setItem("genderState", serializedState);
+    const { auth, cart, wishList } = state;
+
+    // Save each part of the state separately
+    localStorage.setItem("authState", JSON.stringify(auth));
+    localStorage.setItem("cartItemsState", JSON.stringify(cart));
+    localStorage.setItem("wishListItemsState", JSON.stringify(wishList));
   } catch (error) {
     console.error("Could not save state", error);
   }
 };
+
 const persistedState = loadState();
 
 const store = configureStore({

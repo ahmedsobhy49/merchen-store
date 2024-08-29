@@ -9,7 +9,8 @@ import {
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import ProtectedRoute from "./routes/ProtectedRoute";
+import ProtectUserProfileRoute from "./routes/ProtectUserProfileRoute";
+import ProtectCheckOutRoute from "./routes/ProtectCheckOutRoute";
 
 import Header from "./components/layout/header/Header";
 import ProductCategories from "./components/layout/sidebars/mainCategorySidebar/ProductCategories";
@@ -109,9 +110,9 @@ function App() {
           <Route
             path="/checkout"
             element={
-              <ProtectedRoute>
+              <ProtectCheckOutRoute>
                 <CheckOut />
-              </ProtectedRoute>
+              </ProtectCheckOutRoute>
             }
           />
           <Route path="/wishlist" element={<WishList />} />
@@ -121,9 +122,9 @@ function App() {
           <Route
             path="/userProfile"
             element={
-              <ProtectedRoute>
+              <ProtectUserProfileRoute>
                 <UserProfile user={user} />
-              </ProtectedRoute>
+              </ProtectUserProfileRoute>
             }
           />
           <Route path="/newArrival" element={<NewArrival />} />
