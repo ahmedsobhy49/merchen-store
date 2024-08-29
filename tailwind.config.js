@@ -7,7 +7,7 @@ module.exports = withMT({
     extend: {
       backgroundImage: {
         "hero-image-men":
-          "url('https://static.pullandbear.net/2/cms/assets/uploads/newinh_42.jpg?imwidth=1700&impolicy=pullandbear-itxmediumhigh&imformat=chrome&ts=20240808152311')",
+          "url('https://static.pullandbear.net/2/cms/assets/uploads/newinh_53.jpg?imwidth=1700&impolicy=pullandbear-itxmediumhigh&imformat=chrome&ts=20240829021206')",
         "hero-image-women":
           "url('https://static.pullandbear.net/2/cms/assets/uploads/newinh_50.jpg?imwidth=1700&impolicy=pullandbear-itxmediumhigh&imformat=chrome&ts=20240821021706')",
         "t-shirt-men":
