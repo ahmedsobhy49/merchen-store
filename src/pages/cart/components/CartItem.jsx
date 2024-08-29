@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { updateCartProducts } from "../../../store/slices/cartSlice";
-
+import { handleToggleWishListItem } from "../../../store/slices/wishListSlice";
+import { addItemToWishList } from "../../../store/slices/wishListSlice";
 export default function CartItem({ product }) {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -49,18 +50,15 @@ export default function CartItem({ product }) {
       (currWishItem) => currWishItem.id === cartItem.id
     );
     if (!itemExists) {
-      dispatch({
-        type: "TOGGLE_WISH_LIST_ITEM",
-        payload: [...wishListItems, cartItem],
-      });
+      dispatch(handleToggleWishListItem(cartItem));
       removeProduct(cartItem.id);
-      toast.success(`product moved to wishlist successfully`, {
+      toast.success(`Product moved to wishlist successfully`, {
         autoClose: 5000,
         className: "w-[20rem] ",
         draggable: true,
       });
     } else {
-      toast.error(`product is in your wishlist already `, {
+      toast.error(`Product is already in your wishlist`, {
         autoClose: 5000,
         className: "w-[20rem] ",
         draggable: true,
