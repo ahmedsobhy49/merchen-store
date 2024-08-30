@@ -36,7 +36,7 @@ import MenHoodies from "./pages/menClothingPages/menHoodies/MenHoodies";
 import MenShirts from "./pages/menClothingPages/menShirts/MenShirts";
 import MenJackets from "./pages/menClothingPages/menJackets/MenJackets";
 import MenSwimwear from "./pages/menClothingPages/menSwimwear/MenSwinwear";
-import MenKint from "./pages/menClothingPages/menKnit/MenKnit";
+import MenKint from "./pages/menClothingPages/menKint/MenKint";
 import MenUnderwear from "./pages/menClothingPages/menUnderwear/MenUnderwear";
 import MenPacks from "./pages/menClothingPages/menPacks/MenPacks";
 

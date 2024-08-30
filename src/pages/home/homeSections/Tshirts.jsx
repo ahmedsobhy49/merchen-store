@@ -9,8 +9,10 @@ export default function Tshirts() {
   return (
     <div
       className={`${
-        gender === "men" ? "bg-t-shirt-men" : "bg-tops-women"
-      } min-h-screen bg-cover bg-no-repeat relative`}
+        gender === "men"
+          ? "bg-t-shirt-men-sm lg:bg-t-shirt-men"
+          : "bg-tops-women"
+      } min-h-screen bg-cover bg-no-repeat bg-center  relative`}
     >
       <Link to={`${gender === "men" ? "/men-tshirts" : "/women-tops"} `}>
         <TransparentButton

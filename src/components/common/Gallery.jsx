@@ -4,15 +4,15 @@ export default function Gallery({ images }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="flex items-start gap-5 ">
-      <div className="flex flex-col gap-3">
+    <section className="flex flex-col lg:flex-row justify-center items-center lg:items-start gap-5 ">
+      <div className="flex flex-row lg:flex-col gap-3 ">
         {images?.map((image, index) => {
           return (
             <img
               key={index}
               src={image}
               alt=""
-              className={`w-[66px] h-[100px] ${
+              className={`w-[40px] h-[60px] sm:w-[60px] sm:h-[80px] lg:w-[66px] lg:h-[70px] xl:h-[80px] 2xl:h-[90px] ${
                 activeIndex === index
                   ? "border border-gray-800 "
                   : "border-none"
@@ -22,7 +22,7 @@ export default function Gallery({ images }) {
           );
         })}
       </div>
-      <div className="w-[540px] h-[810px] relative overflow-hidden ">
+      <div className="w-full mx-auto sm:w-[400px] lg:w-[540px] h-[600px]  lg:h-[600px] xl:h-[650px] 2xl:h-[700px] -order-5 lg:order-1 relative overflow-hidden ">
         {images.map((image, index) => {
           return (
             <img

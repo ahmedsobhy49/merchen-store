@@ -12,7 +12,9 @@ export default function Hero() {
 
       <div
         className={`${
-          gender === "men" ? "bg-hero-image-men" : "bg-hero-image-women"
+          gender === "men"
+            ? "bg-hero-image-men-sm md:bg-hero-image-men"
+            : "bg-hero-image-women"
         } min-h-screen bg-no-repeat bg-cover bg-center `}
       ></div>
     </section>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function WomenClothingCategories() {
   return (
     <div>
-      <ul className="flex flex-col gap-2">
+      <ul className="flex flex-col gap-2 xl:gap-2 text-sm xl:text-[0.98rem] 2xl:text-[1rem]">
         <li className="hover:translate-x-2 duration-300">
           <Link to={"/women-tops"}>Tops and bodysuits</Link>
         </li>

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { CiHeart } from "react-icons/ci";
-import { FaHeart } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { handleToggleWishListItem } from "../../store/slices/wishListSlice";
 import { handleUpdateCartProducts } from "../../store/slices/cartSlice";
+import { BiSolidHeart } from "react-icons/bi";
+
 import { Link } from "react-router-dom";
 import { hideSearchComponent } from "../../store/slices/layoutsSlice";
 
@@ -73,9 +74,9 @@ export default function ProductCard({
 
   return (
     <article
-      className="w-[364px] text-center relative"
-      onMouseEnter={showAddButton}
+      className="w-full sm:w-11/12 md:w-full xl:w-11/12 2xl:w-full mx-auto relative text-center "
       onMouseLeave={hideAddButton}
+      onMouseEnter={showAddButton}
     >
       <Link
         to={`/product-details/${title}`}
@@ -83,11 +84,15 @@ export default function ProductCard({
         onClick={hideSearchComponentAfterClickOnProduct}
       >
         <div className="w-full">
-          <img src={image} alt={title} className="h-[572px] w-full" />
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-[320px] sm:h-[390px] lg:h-[450px] xl:h-[450px] 2xl:h-[560px] object-fit"
+          />
         </div>
       </Link>
       <div
-        className={`w-4/5 absolute bottom-20 left-1/2 -translate-x-1/2 text-xs duration-150 flex transition-all ${
+        className={`absolute bottom-14 sm:bottom-[4.5rem] lg:bottom-14 w-11/12 mx-auto left-0 right-0 transform  text-xs duration-150 flex transition-all ${
           isMouseIn ? "opacity-100" : "opacity-0"
         }`}
       >
@@ -114,18 +119,21 @@ export default function ProductCard({
           onClick={hideSearchComponentAfterClickOnProduct}
         >
           <div>
-            <p className="text-sm">{title}</p>
-            <p className="text-sm font-bold">{price}$</p>
+            <p className="text-[0.6rem] md:text-xs">{title}</p>
+            <p className="text-xs sm:text-sm font-bold">{price}$</p>
           </div>
         </Link>
         <div
-          className="bg-white shadow-lg rounded-full p-2 ml-4"
+          className="bg-white shadow-lg rounded-full p-2 ml-4  cursor-pointer"
           onClick={toggleWishListItem}
         >
           {isProductInWishList ? (
-            <FaHeart size="1.5rem" className="cursor-pointer" />
+            <BiSolidHeart
+              fill="red"
+              className="text-md md:text-lg xl:text-xl"
+            />
           ) : (
-            <CiHeart className="cursor-pointer" size="1.5rem" />
+            <CiHeart className="text-md md:text-lg xl:text-xl" />
           )}
         </div>
       </div>

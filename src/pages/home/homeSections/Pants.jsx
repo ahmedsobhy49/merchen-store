@@ -8,8 +8,10 @@ export default function Pants() {
   return (
     <div
       className={`${
-        gender === "men" ? "bg-pants-men" : "bg-dresses-women"
-      } min-h-screen bg-cover bg-no-repeat relative`}
+        gender === "men"
+          ? "bg-pants-men-sm lg:bg-pants-men"
+          : "bg-dresses-women"
+      } min-h-screen bg-cover bg-no-repeat bg-center  relative`}
     >
       <Link to={`${gender === "men" ? "/men-pants" : "/women-dresses"}`}>
         <TransparentButton

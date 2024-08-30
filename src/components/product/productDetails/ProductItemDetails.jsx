@@ -58,11 +58,11 @@ export default function ProductItemDetails() {
     );
   }
   return (
-    <section className="flex gap-12 w-9/12 mx-auto mt-[110px] mb-10">
-      <div className="w-1/2">
+    <section className="flex flex-col lg:flex-row gap-12 w-10/12 lg:w-11/12 xl:w-10/12 2xl:w-9/12 mx-auto mt-[110px] mb-10">
+      <div className="w-full lg:w-1/2 mx-auto">
         <Gallery images={[image, ...(galleryImages || [])]} />
       </div>
-      <div className="w-1/2 flex flex-col gap-3">
+      <div className="w-full sm:w-10/12 lg:w-1/2 mx-auto flex flex-col gap-3">
         <h2 className="block font-sans text-xl antialiased font-semibold leading-tight tracking-normal text-inherit">
           {title}
         </h2>

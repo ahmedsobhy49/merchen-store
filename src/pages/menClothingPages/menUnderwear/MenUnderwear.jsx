@@ -31,14 +31,16 @@ export default function MenUnderwear() {
     <ProductsContainer>
       {!loading ? (
         <>
-          <div className="w-fit mx-auto  flex items-center gap-3">
-            <span className="text-xl font-bold">Underwear</span>
-            <span className="text-md font-bold"> / </span>
-            <span className="text-xl font-bold text-gray-300">
+          <div className="w-fit mx-auto flex items-center gap-2 sm:gap-3">
+            <span className="text-lg sm:text-xl font-bold">Underwear</span>
+            <span className="text-sm sm:text-md font-bold"> / </span>
+            <span className="text-lg sm:text-xl font-bold text-gray-300">
               {menUnderwear.length} items
             </span>
           </div>
-          <div className={`mt-14 grid grid-cols-4 gap-12 w-full px-10 `}>
+          <div
+            className={`mt-8 sm:mt-14 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-6 sm:gap-x-6 md:gap-x-8 lg:gap-x-10 w-full px-4 sm:px-6 md:px-8 lg:px-10`}
+          >
             {menUnderwear.map((product) => (
               <ProductItem
                 product={{

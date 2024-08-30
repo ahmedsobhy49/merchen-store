@@ -2,10 +2,10 @@ import React from "react";
 import MoreItmesButton from "../../../components/common/MoreItmesButton";
 export default function MoreItems() {
   return (
-    <div className="bg-more-itmes bg-cover bg-no-repeat h-[33rem] relative ">
+    <div className="bg-more-items-men-sm lg:bg-more-itmes bg-cover  bg-no-repeat h-screen lg:h-[33rem] relative ">
       <div
         id="overlay"
-        className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-70"
+        className="hidden lg:block absolute top-0 left-0 right-0 bottom-0 bg-black opacity-70"
       >
         <h2 className="text-center text-4xl tracking-wider font-bold text-white  flex flex-col py-12">
           <span>More itmes added</span>

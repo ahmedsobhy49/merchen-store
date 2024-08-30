@@ -78,6 +78,7 @@ const fetchingMenDataSlice = createSlice({
         action.payload.category.slice(1);
       console.log(category);
       state[`fetching${category}States`].loading = true;
+
       state[`fetching${category}States`].error = null;
     },
     fetchMenDataSucess: (state, action) => {
