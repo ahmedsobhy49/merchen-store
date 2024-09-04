@@ -29,16 +29,6 @@ export default function CartSummery() {
         total: total.toFixed(2),
       })
     );
-    // dispatch({
-    //   type: "CALC_ORDER_SUMMARY",
-    // payload: {
-    //   originalPrice: originalPrice.toFixed(2),
-    //   savings: savings.toFixed(2),
-    //   storePickup: storePickup.toFixed(2),
-    //   tax: tax.toFixed(2),
-    //   total: total.toFixed(2),
-    // },
-    // });
   }
 
   useEffect(() => {
@@ -54,7 +44,7 @@ export default function CartSummery() {
   }
 
   return (
-    <div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full w-1/3">
+    <div className="mx-auto mt-6 space-y-6 lg:mt-0 w-full lg:w-1/2 ">
       <Link
         to={"/wishlist"}
         className="flex w-full items-center  justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white  bg-black"

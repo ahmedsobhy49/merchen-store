@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { updateCartProducts } from "../../../store/slices/cartSlice";
 import { handleToggleWishListItem } from "../../../store/slices/wishListSlice";
-import { addItemToWishList } from "../../../store/slices/wishListSlice";
+
 export default function CartItem({ product }) {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -68,77 +68,26 @@ export default function CartItem({ product }) {
 
   return (
     <div
-      className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm  md:p-6"
+      className="rounded-lg border border-gray-200 w-full  2xl:p-4 shadow-sm   "
       key={product.id}
     >
-      <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
-        <Link
-          to={`/product-details/${product.title}`}
-          state={product}
-          className="shrink-0 md:order-1"
-        >
-          <img className="h-24 w-18" src={product.image} alt="imac image" />
-        </Link>
-
-        <div className="flex items-center justify-between md:order-3 md:justify-end">
-          <div className="flex items-center gap-4">
-            <button
-              type="button"
-              id="decrement-button"
-              onClick={decrementProduct}
-              data-input-counter-decrement="counter-input"
-              className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 "
-            >
-              <svg
-                className="h-2.5 w-2.5 text-gray-900 "
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 18 2"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M1 1h16"
-                />
-              </svg>
-            </button>
-
-            <span>{product.count}</span>
-            <button
-              onClick={incrementProduct}
-              type="button"
-              id="increment-button"
-              data-input-counter-increment="counter-input"
-              className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 "
-            >
-              <svg
-                className="h-2.5 w-2.5 text-gray-900 "
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 18 18"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M9 1v16M1 9h16"
-                />
-              </svg>
-            </button>
-          </div>
-          <div className="text-end md:order-4 md:w-32">
-            <p className="text-base font-bold text-gray-900 ">
-              {Number((product.price * product.count).toFixed(2))} $
-            </p>
-          </div>
+      <div className="flex gap-5">
+        {/* image */}
+        <div className="flex items-start gap-4 w-1/3 ">
+          <Link
+            className="w-full"
+            to={`/product-details/${product.title}`}
+            state={product}
+          >
+            <img
+              className="h-56 md:h-64 w-full 2xl:h-24 2xl:w-18"
+              src={product.image}
+              alt="imac image"
+            />
+          </Link>
         </div>
-
-        <div className="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
+        {/* title  */}
+        <div className="flex flex-col gap-5 pt-5">
           <Link
             to={`/product-details/${product.title}`}
             state={product}
@@ -147,56 +96,120 @@ export default function CartItem({ product }) {
             {product.title}
           </Link>
 
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => moveToWishList(product)}
-              type="button"
-              className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-900 hover:underline "
-            >
-              <svg
-                className="me-1.5 h-5 w-5 "
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
-                />
-              </svg>
-              Move to Favorites
-            </button>
+          {/* price  */}
+          <div>
+            <p className="text-base font-bold text-gray-900 ">
+              {Number((product.price * product.count).toFixed(2))} $
+            </p>
+          </div>
 
-            <button
-              type="button"
-              className="inline-flex items-center text-sm font-medium text-red-600 hover:underline "
-              onClick={() => removeProduct(product.id)}
-            >
-              <svg
-                className="me-1.5 h-5 w-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
+          {/* inc and dec buttons */}
+          <div className="flex items-center justify-between  ">
+            <div className="flex items-center gap-4">
+              <button
+                type="button"
+                id="decrement-button"
+                onClick={decrementProduct}
+                data-input-counter-decrement="counter-input"
+                className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 "
               >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18 17.94 6M18 18 6.06 6"
-                />
-              </svg>
-              Remove
-            </button>
+                <svg
+                  className="h-2.5 w-2.5 text-gray-900 "
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 18 2"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M1 1h16"
+                  />
+                </svg>
+              </button>
+
+              <span>{product.count}</span>
+              <button
+                onClick={incrementProduct}
+                type="button"
+                id="increment-button"
+                data-input-counter-increment="counter-input"
+                className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 "
+              >
+                <svg
+                  className="h-2.5 w-2.5 text-gray-900 "
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 18 18"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9 1v16M1 9h16"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* move and delete  */}
+          <div className="w-full  ">
+            <div className="flex  justify-between gap-4  mt-10 md:mt-16 mx-auto w-full">
+              <button
+                onClick={() => moveToWishList(product)}
+                type="button"
+                className="flex items-center text-sm  hover:underline"
+              >
+                <svg
+                  className="me-1.5 h-5 w-5 "
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
+                  />
+                </svg>
+                Move to Favorites
+              </button>
+
+              <button
+                type="button"
+                className="inline-flex items-center text-sm font-medium text-red-600 hover:underline "
+                onClick={() => removeProduct(product.id)}
+              >
+                <svg
+                  className="me-1.5 h-5 w-5"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18 17.94 6M18 18 6.06 6"
+                  />
+                </svg>
+                Remove
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -27,6 +27,9 @@ export default function ProductItemDetails() {
   const { title, price, image, id, count, galleryImages } = product || {};
 
   const wishListItems = useSelector((state) => state.wishList.wishListItems);
+  const searchButtonClicked = useSelector(
+    (state) => state.layouts.searchButtonClicked
+  );
   // Determine if the product is in the wishlist
   const isProductInWishList = wishListItems.some(
     (wishItem) => wishItem.id === id
@@ -58,7 +61,11 @@ export default function ProductItemDetails() {
     );
   }
   return (
-    <section className="flex flex-col lg:flex-row gap-12 w-10/12 lg:w-11/12 xl:w-10/12 2xl:w-9/12 mx-auto mt-[110px] mb-10">
+    <section
+      className={`flex flex-col lg:flex-row gap-12 w-10/12 lg:w-10/12 xl:w-8/12  mx-auto ${
+        searchButtonClicked ? "mt-0 opacity-0" : "mt-[160px] opacity-100"
+      }mb-10`}
+    >
       <div className="w-full lg:w-1/2 mx-auto">
         <Gallery images={[image, ...(galleryImages || [])]} />
       </div>

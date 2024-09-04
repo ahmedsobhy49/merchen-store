@@ -9,23 +9,25 @@ export default function Cart() {
   const cartItems = useSelector((state) => state.cart.cartItems);
 
   return (
-    <section className="bg-white py-40 antialiased min-h-screen">
+    <section className=" py-40 antialiased min-h-screen ">
       {cartItems.length ? (
-        <div className="mx-auto  w-9/12 px-4 2xl:px-0">
-          <h2 className="text-xl font-semibold text-gray-900  sm:text-2xl">
-            Shopping Cart
-          </h2>
+        <div className="mx-auto px-4 2xl:px-0">
+          <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8 w-full md:w-10/12 lg:w-full  mx-auto ">
+            <div className="w-full">
+              <h2 className="text-xl font-semibold text-gray-900 sm:text-2xl mb-5">
+                Shopping Cart
+              </h2>
 
-          <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8  ">
-            <div className="mx-auto  flex-none lg:max-w-2xl xl:max-w-4xl  w-2/3">
-              <div className="space-y-6">
-                {cartItems.map((cartItem) => {
-                  return <CartItem product={cartItem} key={cartItem.id} />;
-                })}
+              <div className="lg:flex lg:w-11/12 mx-auto gap-5">
+                <div className="flex flex-col gap-3 md:gap-5  lg:w-1/2">
+                  {cartItems.map((cartItem) => {
+                    return <CartItem product={cartItem} key={cartItem.id} />;
+                  })}
+                </div>
+                {/* <PeopleAlsoBought /> */}
+                <CartSummery />
               </div>
-              <PeopleAlsoBought />
             </div>
-            <CartSummery />
           </div>
         </div>
       ) : (

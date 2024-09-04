@@ -10,8 +10,8 @@ export default function Tshirts() {
     <div
       className={`${
         gender === "men"
-          ? "bg-t-shirt-men-sm lg:bg-t-shirt-men"
-          : "bg-tops-women"
+          ? "bg-t-shirt-men-sm md:bg-t-shirt-men"
+          : "bg-tops-women-sm md:bg-tops-women"
       } min-h-screen bg-cover bg-no-repeat bg-center  relative`}
     >
       <Link to={`${gender === "men" ? "/men-tshirts" : "/women-tops"} `}>
