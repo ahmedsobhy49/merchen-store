@@ -68,26 +68,26 @@ export default function CartItem({ product }) {
 
   return (
     <div
-      className="rounded-lg border border-gray-200 w-full  2xl:p-4 shadow-sm   "
+      className="rounded-lg border border-gray-200 w-full  2xl:p-4 shadow-sm "
       key={product.id}
     >
-      <div className="flex gap-5">
+      <div className="flex gap-5 ">
         {/* image */}
-        <div className="flex items-start gap-4 w-1/3 ">
+        <div className="flex items-start gap-4 w-1/3  xl:w-1/4 h-full">
           <Link
             className="w-full"
             to={`/product-details/${product.title}`}
             state={product}
           >
             <img
-              className="h-56 md:h-64 w-full 2xl:h-24 2xl:w-18"
+              className="h-56 md:h-64 w-full 2xl:h-full 2xl:w-18 "
               src={product.image}
               alt="imac image"
             />
           </Link>
         </div>
         {/* title  */}
-        <div className="flex flex-col gap-5 pt-5">
+        <div className="flex flex-col gap-5  pt-5">
           <Link
             to={`/product-details/${product.title}`}
             state={product}
@@ -104,7 +104,7 @@ export default function CartItem({ product }) {
           </div>
 
           {/* inc and dec buttons */}
-          <div className="flex items-center justify-between  ">
+          <div className="flex items-center justify-between ">
             <div className="flex items-center gap-4">
               <button
                 type="button"
@@ -158,8 +158,8 @@ export default function CartItem({ product }) {
           </div>
 
           {/* move and delete  */}
-          <div className="w-full  ">
-            <div className="flex  justify-between gap-4  mt-10 md:mt-16 mx-auto w-full">
+          <div className="w-full ">
+            <div className="flex  justify-between gap-4  mt-10  md:mt-16 xl:mt-28 mx-auto w-full">
               <button
                 onClick={() => moveToWishList(product)}
                 type="button"

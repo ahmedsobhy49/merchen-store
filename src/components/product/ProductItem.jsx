@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { handleToggleWishListItem } from "../../store/slices/wishListSlice";
 import { handleUpdateCartProducts } from "../../store/slices/cartSlice";
 import { BiSolidHeart } from "react-icons/bi";
+import CustomDropdown from "../common/CustomDropdown";
 
 import { Link } from "react-router-dom";
 import { hideSearchComponent } from "../../store/slices/layoutsSlice";
@@ -22,6 +23,11 @@ export default function ProductCard({
 }) {
   const { title, price, image, id, count, galleryImages } = product;
   const [isMouseIn, setIsMouseIn] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const handleSelect = (option) => {
+    setSelectedOption(option);
+  };
+
   const dispatch = useDispatch();
   const wishListItems = useSelector((state) => state.wishList.wishListItems);
   const searchButtonClicked = useSelector(
@@ -96,13 +102,13 @@ export default function ProductCard({
           isMouseIn ? "opacity-100" : "opacity-0"
         }`}
       >
-        <select className="bg-white w-1/2 border border-black focus:outline-none">
-          <option value="XS">XS</option>
-          <option value="S">S</option>
-          <option value="M">M</option>
-          <option value="L">L</option>
-          <option value="XL">XL</option>
-        </select>
+        <div className="w-1/2">
+          <CustomDropdown
+            options={["xs", "sm", "md", "lg", "xl"]}
+            selected={selectedOption}
+            onSelect={handleSelect}
+          />
+        </div>
         <button
           className="w-1/2 bg-black text-white text-xs px-1 py-1"
           onClick={handleAddNewItemToCart}

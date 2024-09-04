@@ -9,7 +9,7 @@ export default function ErrorMessage({
   return (
     <div
       style={{ minHeight: height, paddingTop: paddingTop }}
-      className={`flex opacity-0  ${
+      className={`flex opacity-0  mb-5 ${
         errorMessage ? "opacity-100" : "opacity-0"
       } justify-start text-start text-xs items-center text-red-600 gap-1`}
     >
