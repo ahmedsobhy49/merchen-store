@@ -116,7 +116,7 @@ function App() {
             }
           />
           <Route path="/wishlist" element={<WishList />} />
-          <Route path="/summery" element={<InvoiceSummery />} />
+          <Route path="/summery" element={<InvoiceSummery user={user} />} />
           <Route path="/login" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
           <Route

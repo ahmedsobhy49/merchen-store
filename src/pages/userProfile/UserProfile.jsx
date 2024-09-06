@@ -20,7 +20,7 @@ export default function UserProfile({ user }) {
                 Full name
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {user.uid}
+                {user.name}
               </dd>
             </div>
             <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

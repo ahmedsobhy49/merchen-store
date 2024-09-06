@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ErrorMessage from "../common/ErrorMessage";
 import { Link } from "react-router-dom";
+import { handleCreateAccount } from "../../store/slices/authSlice";
+import ReactLoading from "react-loading";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Register() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading, error, success } = useSelector((state) => state.auth.signup);
+
   const validateScheme = Yup.object({
     firstName: Yup.string()
       .matches(
@@ -44,11 +52,9 @@ export default function Register() {
       password: "",
       confirmPassword: "",
     },
-
     validationSchema: validateScheme,
-
     onSubmit: (values) => {
-      console.log(values);
+      dispatch(handleCreateAccount(values, navigate)); // Pass values to handleCreateAccount
     },
   });
 
@@ -177,8 +183,19 @@ export default function Register() {
           type="submit"
           className="disabled:bg-opacity-80 disabled:cursor-not-allowed w-full font-bold text-white bg-black hover:bg-primary-700 focus:outline-none tracking-wide rounded-lg text-xs sm:text-xs md:text-sm px-2 sm:px-3 py-1 sm:py-1.5 text-center"
         >
-          Sign up
+          {loading ? (
+            <ReactLoading
+              type="spin"
+              color="white"
+              width={"20px"}
+              height={"20px"}
+              className="mx-auto"
+            />
+          ) : (
+            "Sign Up"
+          )}
         </button>
+        <ErrorMessage errorMessage={error} paddingTop="1rem" />
       </div>
       <p className="text-xs sm:text-xs font-light text-gray-500">
         Already have an account?

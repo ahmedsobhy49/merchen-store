@@ -20,6 +20,7 @@ export default function CheckOutForm() {
               type="text"
               id="email"
               name="email"
+              autoComplete="off"
               className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
               placeholder="your.email@gmail.com"
             />
@@ -48,6 +49,7 @@ export default function CheckOutForm() {
           </label>
           <div className="relative">
             <input
+              autoComplete="off"
               type="text"
               id="card-holder"
               name="card-holder"
@@ -82,6 +84,7 @@ export default function CheckOutForm() {
               <input
                 type="text"
                 id="card-no"
+                autoComplete="off"
                 name="card-no"
                 className="w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                 placeholder="xxxx-xxxx-xxxx-xxxx"
@@ -109,6 +112,7 @@ export default function CheckOutForm() {
             <input
               type="text"
               name="credit-cvc"
+              autoComplete="off"
               className="w-1/6 flex-shrink-0 rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
               placeholder="CVC"
             />
@@ -124,6 +128,7 @@ export default function CheckOutForm() {
               <input
                 type="text"
                 id="billing-address"
+                autoComplete="off"
                 name="billing-address"
                 className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                 placeholder="Street Address"

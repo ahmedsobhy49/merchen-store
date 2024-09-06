@@ -63,7 +63,7 @@ export default function Search() {
 
   return (
     <div
-      className={`bg-white absolute z-40 duration-300 w-full pt-40 pb-10 min-h-screen ${
+      className={`bg-white absolute z-40 duration-1000 w-full pt-40 pb-10 min-h-screen ${
         searchButtonClicked ? "translate-y-0" : "-translate-y-[120%] delay-500"
       }`}
     >

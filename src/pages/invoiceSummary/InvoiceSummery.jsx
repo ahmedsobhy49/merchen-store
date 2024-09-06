@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import SummaryProductItem from "../../components/product/SummaryProductItem";
 
-export default function InvoiceSummery() {
+export default function InvoiceSummery({ user }) {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const orderSummary = useSelector((state) => state.cart.orderSummary);
 
@@ -13,14 +13,12 @@ export default function InvoiceSummery() {
           Your Order Confirmed, Thank you for shopping with us!
         </h2>
         <h6 className="font-medium text-lg leading-6 text-black mb-2">
-          Hello, Ahmed
+          Hello, {user.name}
         </h6>
         <p className="font-normal text-base leading-6 text-gray-500 mb-8">
-          {" "}
           Your order has been completed and will be delivered in only two days.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-5 py-4 border-y border-gray-100 mb-4">
-          {" "}
           <div className="box group">
             <p className="font-normal text-sm leading-5 text-gray-500 mb-2 transition-all duration-500 group-hover:text-gray-700">
               Delivery Date

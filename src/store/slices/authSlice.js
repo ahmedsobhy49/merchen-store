@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../services/firebaseConfig";
+import axios from "axios";
 
 // Define initial state
 const initialState = {
@@ -32,6 +32,9 @@ const authSlice = createSlice({
     signupFailure: (state, action) => {
       state.signup = { loading: false, error: action.payload, success: false };
     },
+    endSignupRequest: (state) => {
+      state.signup = { ...state.signup, loading: false, error: null };
+    },
     loginRequest: (state) => {
       state.user = { ...state.user, loading: true, error: null };
     },
@@ -45,6 +48,9 @@ const authSlice = createSlice({
     },
     loginFailure: (state, action) => {
       state.user = { ...state.user, loading: false, error: action.payload };
+    },
+    endLoginRequest: (state) => {
+      state.user = { ...state.user, loading: false, error: false };
     },
     logout: (state) => {
       state.user = {
@@ -63,16 +69,14 @@ const authSlice = createSlice({
 export const handleLogin =
   (email, password, navigate, location) => async (dispatch) => {
     dispatch(loginRequest());
+    console.log(email, password);
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
+      const res = await axios.post(
+        "https://ecommerce.routemisr.com/api/v1/auth/signin",
+        { email, password }
       );
-
-      const userInfo = userCredential.user;
-      dispatch(loginSuccess(userInfo));
-
+      console.log(res);
+      dispatch(loginSuccess(res.data.user));
       // Determine where to navigate based on the previous route
       const { from } = location.state || { from: { pathname: "/" } };
       if (from.pathname === "/cart") {
@@ -81,23 +85,14 @@ export const handleLogin =
         navigate("/", { replace: true });
       }
     } catch (error) {
-      let errorMessage;
-      switch (error.code) {
-        case "auth/user-not-found":
-        case "auth/invalid-email":
-        case "auth/wrong-password":
-        case "auth/invalid-credential":
-          errorMessage = "Incorrect email or password";
-          break;
-
-        case "auth/missing-password":
-          errorMessage = "Password is missing";
-          break;
-        default:
-          errorMessage = "Failed to sign in. Please try again.";
-      }
-      dispatch(loginFailure(errorMessage));
+      console.log(error);
+      dispatch(
+        loginFailure(
+          error?.response?.data?.errors?.msg || error.response.data.message
+        )
+      );
     }
+    dispatch(endLoginRequest());
   };
 
 export const handleLogout = () => (dispatch) => {
@@ -105,71 +100,31 @@ export const handleLogout = () => (dispatch) => {
   dispatch(logout());
 };
 
-export const handleCreateAccount =
-  (
-    email,
-    password,
-    confirmPassword,
-    setEmailError,
-    setPasswordError,
-    navigate
-  ) =>
-  async (dispatch) => {
-    // Validate input
-
-    if (!email) {
-      setEmailError("Email is required");
-      return;
-    }
-
-    if (!validateEmail(email)) {
-      setEmailError("Invalid email format");
-      setPasswordError("");
-      return;
-    } else {
-      setEmailError("");
-    }
-
-    if (password !== confirmPassword) {
-      setPasswordError("Passwords do not match");
-      return;
-    } else {
-      setPasswordError("");
-    }
-    if (!password) {
-      setPasswordError("Please provide a password");
-      return;
-    } else {
-      setPasswordError("");
-    }
-    dispatch(signupRequest());
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const userInfo = userCredential.user;
-      dispatch(signupSuccess(userInfo));
-      navigate("/login");
-    } catch (error) {
-      let errorMessage;
-      switch (error.code) {
-        case "auth/email-already-in-use":
-          errorMessage = "Email already in use";
-          break;
-        case "auth/invalid-email":
-          errorMessage = "Invalid email address";
-          break;
-        case "auth/weak-password":
-          errorMessage = "Weak password";
-          break;
-        default:
-          errorMessage = "Failed to sign up. Please try again.";
-      }
-      dispatch(signupFailure(errorMessage));
-    }
+export const handleCreateAccount = (values, navigate) => async (dispatch) => {
+  dispatch(signupRequest());
+  const valuesFormated = {
+    name: values.firstName + " " + values.lastName,
+    email: values.email,
+    password: values.password,
+    rePassword: values.confirmPassword,
+    phone: "01050505050",
   };
+
+  try {
+    const res = await axios.post(
+      "https://ecommerce.routemisr.com/api/v1/auth/signup",
+      valuesFormated
+    );
+    console.log(res);
+    dispatch(signupSuccess());
+    navigate("/login");
+  } catch (error) {
+    console.log(error);
+    dispatch(signupFailure(error.response?.data?.message));
+  }
+  dispatch(endSignupRequest());
+  console.log("Account creation function executed");
+};
 
 export const validateEmail = (email) => {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

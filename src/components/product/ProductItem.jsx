@@ -104,7 +104,7 @@ export default function ProductCard({
       >
         <div className="w-1/2">
           <CustomDropdown
-            options={["xs", "sm", "md", "lg", "xl"]}
+            options={["xs", "S", "M", "L", "XL"]}
             selected={selectedOption}
             onSelect={handleSelect}
           />

@@ -22,17 +22,18 @@ export default function SigninForm() {
   const { isAuthenticated, loading, error } = useSelector(
     (state) => state.auth.user
   );
-
+  console.log(error);
   const Signin = async (e) => {
+    console.log("object");
     e.preventDefault();
-    dispatch(handleLogin(emailValue, passwordValue, navigate, location)); // Pass navigate and location
+    dispatch(handleLogin(emailValue, passwordValue, navigate, location));
   };
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      // This will handle the navigation inside the login action
-    }
-  }, [isAuthenticated]);
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     // This will handle the navigation inside the login action
+  //   }
+  // }, [isAuthenticated]);
 
   return (
     <form className="space-y-4 md:space-y-6" onSubmit={Signin}>
@@ -79,7 +80,7 @@ export default function SigninForm() {
       <button
         type="submit"
         className="w-full text-white bg-black hover:bg-primary-700 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-        disabled={loading}
+        // disabled={loading}
       >
         {loading ? (
           <ReactLoading
