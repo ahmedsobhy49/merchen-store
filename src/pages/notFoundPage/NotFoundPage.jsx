@@ -1,9 +1,12 @@
+import { Link, useNavigate } from "react-router-dom";
+import { IoIosArrowRoundBack } from "react-icons/io";
+
 export default function NotFoundPage() {
+  const navigate = useNavigate();
   return (
-    <section className="bg-white  ">
-      <div className="container min-h-screen px-6 py-12 mx-auto lg:flex lg:items-center lg:gap-12">
-        <div className="wf-ull lg:w-1/2">
-          <p className="text-sm font-medium text-red-500 ">404 error</p>
+    <section className="h-screen flex items-center justify-center">
+      <div className=" px-6 py-12 mx-auto flex flex-col lg:flex-row items-center justify-center lg:gap-12 ">
+        <div className="w-full lg:w-1/2 ">
           <h1 className="mt-3 text-2xl font-semibold text-gray-800  md:text-3xl">
             Page not found
           </h1>
@@ -13,28 +16,20 @@ export default function NotFoundPage() {
           </p>
 
           <div className="flex items-center mt-6 gap-x-3">
-            <button className="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 sm:w-auto ">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                className="w-5 h-5 rtl:rotate-180"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-                />
-              </svg>
-
+            <button
+              onClick={() => navigate(-1)}
+              className="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 sm:w-auto "
+            >
+              <IoIosArrowRoundBack size={30} />
               <span>Go back</span>
             </button>
 
-            <button className="w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-black rounded-lg shrink-0 sm:w-auto  ">
+            <Link
+              to={"/"}
+              className="w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-black rounded-lg shrink-0 sm:w-auto  "
+            >
               Take me home
-            </button>
+            </Link>
           </div>
         </div>
 

@@ -1,30 +1,37 @@
-import React from "react";
 import {
   BrowserRouter as Router,
   Route,
   Routes,
   Navigate,
+  useParams,
 } from "react-router-dom";
 
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+// protected routes
 import ProtectUserProfileRoute from "./routes/ProtectUserProfileRoute";
 import ProtectCheckOutRoute from "./routes/ProtectCheckOutRoute";
 
-import Header from "./components/layout/header/Header";
-import ProductCategories from "./components/layout/sidebars/mainCategorySidebar/ProductCategories";
-import ProductItemDetails from "./components/product/productDetails/ProductItemDetails";
-
+// pages
 import Home from "./pages/home/Home";
-import Search from "./components/search/Search";
 import Cart from "./pages/cart/Cart";
 import Signin from "./pages/signin/Signin";
 import Signup from "./pages/signup/Signup";
-import Footer from "./components/layout/footer/Footer";
-import ScrollToTop from "./components/ScrollToTop";
-import UserProfile from "./pages/userProfile/UserProfile";
+import ProductItemDetails from "./components/product/productDetails/ProductItemDetails";
 import WishList from "./pages/wishList/WishList";
+import CheckOut from "./pages/checkOut/CheckOut";
+import UserProfile from "./pages/userProfile/UserProfile";
+import InvoiceSummery from "./pages/invoiceSummary/InvoiceSummery";
+import NotFoundPage from "./pages/notFoundPage/NotFoundPage";
+import DeliveryInfo from "./pages/ deliveryInfo/ DeliveryInfo";
+
+//layouts
+import Header from "./components/layout/header/Header";
+import ProductCategories from "./components/layout/sidebars/mainCategorySidebar/ProductCategories";
+import Search from "./components/search/Search";
+import Footer from "./components/layout/footer/Footer";
+import ScrollToTop from "./components/common/ScrollToTop";
 import NewArrival from "./pages/newArrival/NewArrival";
 
 // men clothing pages
@@ -53,17 +60,12 @@ import WomenBikinis from "./pages/womenClothingPages/bikinis/WomenBikinis";
 import WomenJumpsuits from "./pages/womenClothingPages/jumpsuits/WomenJumpsuits";
 import WomenHoodies from "./pages/womenClothingPages/hoodies/WomenHoodies";
 import WomenJackets from "./pages/womenClothingPages/jackets/WomenJackets";
-// import WomenTotalLook from "./pages/womenClothingPages/totallook/WomenTotalLook";
 import WomenKnitwear from "./pages/womenClothingPages/knitwear/WomenKnitwear";
 import WomenVests from "./pages/womenClothingPages/vests/WomenVests";
 import WomenBlazers from "./pages/womenClothingPages/blazers/WomenBlazers";
 import WomenLingerie from "./pages/womenClothingPages/lingerie/WomenLingerie";
-import CheckOut from "./pages/checkOut/CheckOut";
-import InvoiceSummery from "./pages/invoiceSummary/InvoiceSummery";
-import NotFoundPage from "./pages/notFoundPage/NotFoundPage";
-import { useParams } from "react-router-dom";
-import DeliveryInfo from "./pages/ deliveryInfo/ DeliveryInfo";
-import Register from "./components/forms/Register";
+
+///
 import { changeGender } from "./store/slices/authSlice";
 
 function App() {
@@ -128,7 +130,7 @@ function App() {
             }
           />
           <Route path="/newArrival" element={<NewArrival />} />
-          // men
+          {/* men */}
           <Route path="/men-jeans" element={<MenJeans />} />
           <Route path="/men-pants" element={<MenPants />} />
           <Route path="/men-tshirts" element={<MenTshirts />} />
@@ -140,7 +142,7 @@ function App() {
           <Route path="/men-kint" element={<MenKint />} />
           <Route path="/men-underwear" element={<MenUnderwear />} />
           <Route path="/men-packs" element={<MenPacks />} />
-          // women
+          {/* women */}
           <Route path="/women-tops" element={<WomenTops />} />
           <Route path="/women-tshirts" element={<WomenTshirts />} />
           <Route path="/women-dresses" element={<WomenDresses />} />
@@ -158,7 +160,7 @@ function App() {
           <Route path="/women-vests" element={<WomenVests />} />
           <Route path="/women-blazers" element={<WomenBlazers />} />
           <Route path="/women-lingerie" element={<WomenLingerie />} />
-          //
+
           <Route
             path={`/product-details/:productTitle`}
             element={<ProductItemDetails />}

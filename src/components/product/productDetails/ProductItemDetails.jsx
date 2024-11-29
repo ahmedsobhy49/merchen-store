@@ -1,10 +1,8 @@
-import React from "react";
-
 // components
 import { Select, Option } from "@material-tailwind/react";
 import Gallery from "../../common/Gallery";
 import { CiHeart } from "react-icons/ci";
-import { FaHeart } from "react-icons/fa";
+import { BiSolidHeart } from "react-icons/bi";
 import Accordion from "../../common/Accordion";
 import Ref from "./components/Ref";
 import CompositionAndCare from "./components/CompositionAndCare";
@@ -107,7 +105,11 @@ export default function ProductItemDetails() {
             }
           >
             {isProductInWishList ? (
-              <FaHeart size="1.5rem" className="cursor-pointer" />
+              <BiSolidHeart
+                fill="red"
+                size="1.5rem"
+                className="cursor-pointer"
+              />
             ) : (
               <CiHeart className="cursor-pointer" size="1.5rem" />
             )}
